@@ -1,0 +1,39 @@
+{
+    "version": "1.0",
+    "menu-items": [{
+            "icon": "<i class='fa fa-futbol-o' aria-hidden='true'></i>",
+            "title": "Đội bóng",
+            "page": "FaTeamsPage",
+            "link": "fa-teams",
+            "active": false
+        },
+        {
+            "icon": "<i class='fa fa-flag' aria-hidden='true'></i>",
+            "title": "Giải đấu",
+            "page": "FaLeaguePage",
+            "link": "fa-league",
+            "active": false
+        },
+        {
+            "icon": "<i class='fa fa-newspaper-o' aria-hidden='true'></i>",
+            "title": "Bài viết",
+            "page": "FaNewsPage",
+            "link": "fa-news",
+            "active": false
+        },
+        {
+            "icon": "<i class='fa fa-picture-o' aria-hidden='true'></i>",
+            "title": "Thư viện ảnh",
+            "page": "FaGalleryPage",
+            "link": "fa-gallery",
+            "active": false
+        },
+        {
+            "icon": "<i class='fa fa-users' aria-hidden='true'></i>",
+            "title": "Tài khoản",
+            "page": "FaUserPage",
+            "link": "fa-user",
+            "active": false
+        }
+    ]
+}
