@@ -142,8 +142,7 @@ export class AppControllerProvider {
 
 
   getArticleById(id: string): Promise<Article> {
-    return this.firebaseService.getArticle(id).then(res => {
-      console.log("res", res);
+    return this.firebaseService.getArticle(id).then(res => { 
       return {
         id: res.id,
         title: res.title,
@@ -159,7 +158,33 @@ export class AppControllerProvider {
     })
   }
 
-  updateArticle(article: Article): Promise<any>{
+  updateArticle(article: Article): Promise<any> {
     return this.firebaseService.updateArticle(article.id, article);
+  }
+
+  deleteArticle(id: string): Promise<any>{
+    return this.firebaseService.deleteArticle(id);
+  }
+
+  getListArticle(): Promise<Array<Article>> {
+    return this.firebaseService.getListArticle().then(data => { 
+      let result = [];
+      data.forEach(element => {
+        let article: Article = {
+          id: element.id,
+          title: element.title,
+          description: element.description,
+          time: element.time,
+          image: element.image,
+          status: this.getStatusById(element.status),
+          category: element.category,
+          league: element.league,
+          content: element.content,
+          location: element.location
+        }
+        result.push(article);
+      }); 
+      return result;
+    })
   }
 }
