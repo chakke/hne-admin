@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Article } from '../interface/article';
 import { FIREBASE_PATH, STATUS } from '../app-constant';
 import { ProgressControllerProvider } from "../progress-controller/progress-controller";
+import { Player } from '../interface/player';
 
 @Injectable()
 export class FirebaseServiceProvider {
@@ -30,7 +31,11 @@ export class FirebaseServiceProvider {
   }
 
   getNewArticleId() {
-    return this.getNewId("news");
+    return this.getNewId("new");
+  }
+
+  getNewPlayerId() {
+    return this.getNewId("player");
   }
 
   addDocument(collection: string, documentId: string, value: any): Promise<any> {
@@ -48,7 +53,7 @@ export class FirebaseServiceProvider {
     this.progressController.add();
     return new Promise((resolve, reject) => {
       this.db.doc(path).get().then(success => {
-        console.log("get succsess", success);
+        console.log("get document succsess", success.data());
         if (success.exists) {
           let result = success.data();
           result.id = success.id;
@@ -103,6 +108,7 @@ export class FirebaseServiceProvider {
     this.progressController.add();
     return new Promise((resolve, reject) => {
       this.db.collection(path).get().then(querySnapshot => {
+        console.log("firebase get collection success", querySnapshot);
         let result = [];
         querySnapshot.forEach(doc => {
           let element = doc.data();
@@ -289,5 +295,92 @@ export class FirebaseServiceProvider {
       },
     ])
     return this.getCollection(FIREBASE_PATH.NEW);
+  }
+
+  getListTeam(): Promise<any> {
+    if (this.isUseFakeData) {
+      return Promise.resolve([
+        {
+          id: "1",
+          logo: "https://seeklogo.com/images/M/manchester-united-logo-F14DA1FCCD-seeklogo.com.png",
+          name: "Manchester United",
+          slogan: "The red devil",
+          players: []
+        },
+        {
+          id: "2",
+          logo: "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png",
+          name: "Manchester City",
+          slogan: "The cityzen",
+          players: []
+        },
+        {
+          id: "3",
+          logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1024px-Chelsea_FC.svg.png",
+          name: "Chelsea",
+          slogan: "The blue",
+          players: []
+        },
+        {
+          id: "4",
+          logo: "https://seeklogo.com/images/A/arsenal-logo-B27C071FE1-seeklogo.com.png",
+          name: "Arsenal",
+          slogan: "The gunner",
+          players: []
+        },
+      ])
+    }
+
+    return this.getCollection(FIREBASE_PATH.TEAM);
+  }
+
+  getTeamById(id: string): Promise<any> {
+    if (this.isUseFakeData) {
+      return Promise.resolve({
+        id: "1",
+        logo: "https://seeklogo.com/images/M/manchester-united-logo-F14DA1FCCD-seeklogo.com.png",
+        name: "Manchester United",
+        slogan: "The red devil",
+        players: []
+      })
+    }
+    return this.getDocument(FIREBASE_PATH.TEAM + "/" + id);
+  }
+
+  addPlayer(player: Player): Promise<any> {
+    if (this.isUseFakeData) {
+      return Promise.resolve();
+    }
+    let playerId = this.getNewPlayerId()
+    return this.addDocument(FIREBASE_PATH.PLAYERS, playerId, {
+      avatar: player.avatar,
+      birth_day: player.birthDay,
+      current_club: player.currentClub,
+      name: player.name,
+      phone: player.phone,
+      position: player.position,
+      province: player.province,
+      shirt_number: player.shirtNumber,
+      special_name: player.specialName
+    }).then(() => {
+      return playerId;
+    });
+  }
+
+  updateTeamPlayers(teamId: string, players: Array<Player>): Promise<any> {
+    if (this.isUseFakeData) return Promise.resolve();
+    let dataUpdatePlayers = [];
+    players.forEach(player => {
+      dataUpdatePlayers.push({
+        id: player.id,
+        name: player.name,
+        shirt_number: player.shirtNumber,
+        special_name: player.specialName,
+        avatar: player.avatar
+      });
+    });
+    return this.updateDocument(FIREBASE_PATH.TEAM + "/" + teamId, {
+      "players": dataUpdatePlayers
+    });
   }
 }

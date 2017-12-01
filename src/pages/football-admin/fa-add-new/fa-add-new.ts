@@ -76,7 +76,6 @@ export class FaAddNewPage {
     this.alertController.clearAllAlert();
   }
 
-
   functionButtonClick(button: string) {
     if (button == FunctionButtonName.BUTTON_CHECK) {
       this.article.description = this.descriptionEditor.getData();

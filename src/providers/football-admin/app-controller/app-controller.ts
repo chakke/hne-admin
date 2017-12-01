@@ -13,6 +13,8 @@ import { Toast, ToastController, App } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { Article } from '../interface/article';
 import { Status } from '../interface/status';
+import { Team } from '../interface/team';
+import { Player } from '../interface/player';
 @Injectable()
 export class AppControllerProvider {
 
@@ -142,7 +144,7 @@ export class AppControllerProvider {
 
 
   getArticleById(id: string): Promise<Article> {
-    return this.firebaseService.getArticle(id).then(res => { 
+    return this.firebaseService.getArticle(id).then(res => {
       return {
         id: res.id,
         title: res.title,
@@ -162,12 +164,12 @@ export class AppControllerProvider {
     return this.firebaseService.updateArticle(article.id, article);
   }
 
-  deleteArticle(id: string): Promise<any>{
+  deleteArticle(id: string): Promise<any> {
     return this.firebaseService.deleteArticle(id);
   }
 
   getListArticle(): Promise<Array<Article>> {
-    return this.firebaseService.getListArticle().then(data => { 
+    return this.firebaseService.getListArticle().then(data => {
       let result = [];
       data.forEach(element => {
         let article: Article = {
@@ -183,8 +185,49 @@ export class AppControllerProvider {
           location: element.location
         }
         result.push(article);
-      }); 
+      });
       return result;
     })
+  }
+  getListTeam(): Promise<Array<Team>> {
+    return this.firebaseService.getListTeam();
+  }
+
+  getTeamById(id: string): Promise<Team> {
+    return this.firebaseService.getTeamById(id).then(data => {
+      let players = [];
+      if (data.players) {
+        data.players.forEach(element => {
+          let player: Player = {
+            id: element.id,
+            avatar: element.avatar,
+            birthDay: undefined,
+            name: element.name,
+            phone: undefined,
+            position: undefined,
+            province: undefined,
+            currentClub: data.id,
+            shirtNumber: element.shirt_number,
+            specialName: element.special_name
+          }
+          players.push(player);
+        });
+      }
+      return {
+        id: data.id,
+        name: data.name,
+        logo: data.logo,
+        slogan: data.slogan,
+        players: players
+      }
+    });
+  }
+
+  addPlayer(player: Player):Promise<any>{
+    return this.firebaseService.addPlayer(player);
+  }
+
+  updateTeamPlayers(teamId: string, players:Array<Player>):Promise<any>{
+    return this.firebaseService.updateTeamPlayers(teamId, players);
   }
 }

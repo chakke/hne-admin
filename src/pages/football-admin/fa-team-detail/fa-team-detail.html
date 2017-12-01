@@ -1,0 +1,43 @@
+<ion-header>
+    <ba-header></ba-header>
+</ion-header>
+
+
+<ion-content>
+    <div class="ba-content">
+        <ba-title [title]="'Chi tiết đội bóng'"></ba-title>
+        <div class="main-controls">
+            <ba-buttons-function [showButton]="{ buttonCheck: true, buttonRemove: true}" (buttonClick)="functionButtonClick($event)"></ba-buttons-function>
+        </div>
+        <div class="ba-section">
+            <div class="section-body">
+                <div class="form-group ba-form-group">
+                    <label for="team-name">Tên đội bóng:</label>
+                    <input type="text" name="team-name" [(ngModel)]="team.name" class="form-control">
+                </div>
+                <image-selector [image]="team.logo" (onImageChange)="imageChange($event)"></image-selector>
+
+                <div class="form-group ba-form-group">
+                    <label for="team-slogan">Slogan:</label>
+                    <textarea [(ngModel)]="team.slogan" spellcheck="false" class="form-control" name="team-slogan" #teamSlogan> </textarea>
+                </div>
+
+                <div class="box">
+                    <div class="box-header">
+                        <span class="title">Danh sách cầu thủ</span>
+                        <button class="btn btn-primary button-right" (click)="addPlayer()" tappable>
+                          <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-6" *ngFor="let player of team.players">
+                                <img src="{{player.avatar}}" alt="avatar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

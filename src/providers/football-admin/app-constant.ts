@@ -81,6 +81,9 @@ export const PAGE_CLASS = {
 }
 
 export const FIREBASE_PATH = {
-    NEW: "news"
+    NEW: "news",
+    TEAM: "leagues/hanoieleven2017/clubs",
+    PLAYERS: "leagues/hanoieleven2017/players"
+
 }
 

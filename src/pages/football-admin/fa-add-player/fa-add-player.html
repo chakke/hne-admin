@@ -1,0 +1,46 @@
+<ion-header>
+    <ba-title [title]="'Thêm mới cầu thủ'"></ba-title>
+    <div class="main-controls">
+        <ba-buttons-function [showButton]="{ buttonCheck: true, buttonRemove: true}" (buttonClick)="functionButtonClick($event)"></ba-buttons-function>
+    </div>
+</ion-header>
+<ion-content>
+    <div class="ba-content">
+
+        <div class="ba-section">
+            <div class="section-body">
+                <div class="form-group ba-form-group">
+                    <label for="player-name">Tên:</label>
+                    <input type="text" name="player-name" [(ngModel)]="player.name" class="form-control" placeholder="Tên">
+                </div>
+                <image-selector [image]="player.avatar" (onImageChange)="imageChange($event)"></image-selector>
+                <div class="form-group ba-form-group">
+                    <label for="player-special-name">Biệt danh:</label>
+                    <input type="text" name="player-special-name" [(ngModel)]="player.specialName" class="form-control" placeholder="Biệt danh">
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="player-birth">Ngày sinh:</label>
+                    <input type="date" name="player-birth" [(ngModel)]="player.birthDay" class="form-control">
+                </div>
+
+                <div class="form-group ba-form-group">
+                    <label for="player-phone">Số điện thoại:</label>
+                    <input type="string" name="player-phone" class="form-control" [(ngModel)]="player.phone" placeholder="Số điện thoại">
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="player-shirt-number">Số áo:</label>
+                    <input type="string" name="player-shirt-number" class="form-control" [(ngModel)]="player.shirtNumber" placeholder="Số áo">
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="player-position">Vị trí:</label>
+                    <input type="string" name="player-position" class="form-control" [(ngModel)]="player.position" placeholder="Vị trí trên sân">
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="player-province">Tỉnh thành:</label>
+                    <input type="string" name="player-province" class="form-control" [(ngModel)]="player.province" placeholder="Tỉnh thành">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ion-content>
