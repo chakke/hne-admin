@@ -7,6 +7,8 @@ export interface Article {
     description: string,
     content: string
     location: string,
-    timeToShow: Date,
-    status: Status
+    time: Date,
+    status: Status,
+    league: string,
+    category: string
 }

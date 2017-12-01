@@ -1,0 +1,42 @@
+<ion-header>
+    <ba-header></ba-header>
+</ion-header>
+
+
+<ion-content>
+    <div class="ba-content">
+        <ba-title [title]="'Chi tiết bài viết'"></ba-title>
+        <div class="main-controls">
+            <ba-buttons-function [showButton]="{ buttonCheck: true, buttonRemove: true}" (buttonClick)="functionButtonClick($event)"></ba-buttons-function>
+        </div>
+        <div class="ba-section">
+            <div class="section-body">
+                <div class="form-group ba-form-group">
+                    <label for="article-name">Tiêu đề:</label>
+                    <input type="text" name="article-name" [(ngModel)]="article.title" class="form-control">
+                </div>
+                <image-selector [image]="article.image" (onImageChange)="imageChange($event)"></image-selector>
+
+                <div class="form-group ba-form-group">
+                    <label for="article-desc">Mô tả ngắn gọn:</label>
+                    <textarea [(ngModel)]="article.description" spellcheck="false" class="form-control" name="article-desc" #articleDesc value="article.description"> </textarea>
+                </div>
+
+                <div class="form-group ba-form-group">
+                    <label for="article-location">Địa điểm:</label>
+                    <input type="text" name="article-location" class="form-control" [(ngModel)]="article.location">
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="article-content">Nội dung:</label>
+                    <textarea [(ngModel)]="article.content" spellcheck="false" class="form-control" name="article-content" #articleContent value="article.description"> </textarea>
+                </div>
+                <div class="form-group ba-form-group">
+                    <label for="status">Trạng thái:</label>
+                    <select name="status" class="form-control" [(ngModel)]="selectedStatus" (ngModelChange)="statusChange($event)">
+                        <option class="dropdown-item" value="{{item.id}}" *ngFor="let item of statusData">{{item.title}}</option> 
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

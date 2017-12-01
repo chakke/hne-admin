@@ -15,6 +15,16 @@ import { ProgressControllerProvider } from '../providers/football-admin/progress
 import { ProvinceControllerProvider } from '../providers/football-admin/province-controller/province-controller';
 import { FootballAdminHttpServiceProvider } from '../providers/football-admin/football-admin-http-service/football-admin-http-service';
 import { FirebaseServiceProvider } from '../providers/football-admin/firebase-service/firebase-service';
+import { AlertControllerProvider } from '../providers/football-admin/alert-controller/alert-controller';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDS7GwPDhNMWc526MO6hpb76e1JQlwHA0w",
+  authDomain: "hanoi-elevencup.firebaseapp.com",
+  databaseURL: "https://hanoi-elevencup.firebaseio.com",
+  projectId: "hanoi-elevencup",
+  storageBucket: "hanoi-elevencup.appspot.com",
+  messagingSenderId: "512334812593"
+};
 
 @NgModule({
   declarations: [
@@ -40,7 +50,8 @@ import { FirebaseServiceProvider } from '../providers/football-admin/firebase-se
     ProgressControllerProvider,
     FootballAdminHttpServiceProvider,
     FirebaseServiceProvider,
-    ProvinceControllerProvider
+    ProvinceControllerProvider,
+    AlertControllerProvider
   ]
 })
 export class AppModule { }

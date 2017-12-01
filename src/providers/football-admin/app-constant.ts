@@ -76,3 +76,11 @@ export const STATUS = {
     }
 }
 
+export const PAGE_CLASS = {
+    ARTICLE_DETAIL: "fa-new-detail"
+}
+
+export const FIREBASE_PATH = {
+    NEW: "news"
+}
+

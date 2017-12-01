@@ -1,0 +1,12 @@
+fa-alert {
+    width: 100%;
+    .fa-alert {
+        width: 100%;
+        position: fixed;
+        top: 3*map-get($map: $BASizes, $key: lineHeight);
+        z-index: 999;
+        .alert {
+            margin-top: 10px;
+        }
+    }
+}

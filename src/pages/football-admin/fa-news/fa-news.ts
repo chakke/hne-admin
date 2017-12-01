@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Article } from '../../../providers/football-admin/interface/article';
-import { STATUS } from '../../../providers/football-admin/app-constant';
+import { STATUS, PAGE_CLASS, FunctionButtonName } from '../../../providers/football-admin/app-constant';
+import { AppControllerProvider } from '../../../providers/football-admin/app-controller/app-controller';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,10 @@ export class FaNewsPage {
 
   articles: Array<Article>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public appController: AppControllerProvider) { 
     this.articles = [
       {
         id: "1",
@@ -31,9 +35,12 @@ export class FaNewsPage {
       <p font-size:="" myriad="" pro="" style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; color: rgb(51, 51, 51); font-family: " text-align:="">
         <span style="color:#ffa500;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; font-weight: 700;"><span style="box-sizing: border-box; margin: 0px; padding: 0px;">Hải Anh FC vs MenU FC(1-0)</span></span></span></p>
       `,
-        timeToShow: new Date(),
-        status: STATUS.ACTIVE
+        time: new Date(),
+        status: STATUS.ACTIVE,
+        category: "hanoi-eleven-2017",
+        league: "hanoi-eleven-2017"
       },
+      
       {
         id: "2",
         title: "Thông báo khai mạc giải HanoiElevenCup 2016 - lần 1",
@@ -55,8 +62,10 @@ export class FaNewsPage {
       <p>
         Lễ khai mạc sẽ diễn ra v&agrave;o hồi: <strong>13h00 tại S&acirc;n ACB &ndash; Mỹ Đ&igrave;nh &ndash; H&agrave; Nội.</strong></p>
       `,
-        timeToShow: new Date(),
-        status: STATUS.ACTIVE
+        time: new Date(),
+        status: STATUS.ACTIVE,
+        category: "hanoi-eleven-2017",
+        league: "hanoi-eleven-2017"
       },
       {
         id: "3",
@@ -77,8 +86,10 @@ export class FaNewsPage {
       <p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(102, 102, 102); font-family: 'Open Sans', sans-serif; font-size: 14px; text-align: justify;">
         Giải đấu sẽ khai mạc v&agrave;o chủ nhật ng&agrave;y 11/12 nhưng bắt đầu đ&aacute; sớm một v&ograve;ng để kịp kết th&uacute;c trước Tết &acirc;m lịch.</p>
       `,
-        timeToShow: new Date(),
-        status: STATUS.ACTIVE
+        time: new Date(),
+        status: STATUS.ACTIVE,
+        category: "hanoi-eleven-2017",
+        league: "hanoi-eleven-2017"
       },
       {
         id: "4",
@@ -104,14 +115,30 @@ export class FaNewsPage {
       <p style="text-align: justify;">
         Với những g&igrave; đ&atilde; c&oacute; trong tay FC B-Gate&nbsp; hứa hẹn sẽ l&agrave; nh&acirc;n tố b&iacute; ẩn của HanoiElevenCup 2016, với đ&oacute; l&agrave; sự cống hiến c&aacute;c pha b&oacute;ng hay, đẹp v&agrave; đẳng cấp.</p>
       `,
-        timeToShow: new Date(),
-        status: STATUS.ACTIVE
+        time: new Date(),
+        status: STATUS.ACTIVE,
+        category: "hanoi-eleven-2017",
+        league: "hanoi-eleven-2017"
       },
     ]
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FaNewsPage');
+  }
+
+  delete(article: Article) {
+
+  }
+
+  gotoNewDetail(id: string) {
+    this.appController.pushPage(PAGE_CLASS.ARTICLE_DETAIL, { id: id });
+  }
+
+  functionButtonClick(button: string){
+    if(button == FunctionButtonName.BUTTON_ADD){
+      this.appController.pushPage("FaAddNewPage");
+    }
   }
 
 }

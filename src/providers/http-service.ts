@@ -64,8 +64,7 @@ export class ParamBuilder {
 @Injectable()
 export class HttpService {
     mHeader: Headers = new Headers();
-    mDebugEnable: boolean = false;
-    numberOfRequest: number = 0;
+    mDebugEnable: boolean = false; 
     constructor(private http: Http, private progressCtrl: ProgressControllerProvider) {
         this.mHeader.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
     }
@@ -78,7 +77,7 @@ export class HttpService {
         return this.http;
     }
 
-    public requestGet(url: string, params: string, options?: RequestOptionsArgs) {
+    public requestGet(url: string, params: string, options?: RequestOptionsArgs) { 
         this.showProgress();
         if (this.mDebugEnable) console.log("request get : " + url + "?" + params);
 
@@ -90,7 +89,7 @@ export class HttpService {
         }).map(data => data.json()).toPromise();
     }
 
-    public requestPost(url: string, params: string, options?: RequestOptionsArgs) {
+    public requestPost(url: string, params: string, options?: RequestOptionsArgs) { 
         this.showProgress();
         params = params.replace(/ /g, "%20");
         if (this.mDebugEnable) console.log("request post : " + url + "?" + params);
@@ -103,7 +102,7 @@ export class HttpService {
         }).map(res => { res.json() }).toPromise();
     }
 
-    public requestPut(url: string, params: string, options?: RequestOptionsArgs) {
+    public requestPut(url: string, params: string, options?: RequestOptionsArgs) { 
         this.showProgress();
         params = params.replace(/ /g, "%20");
         if (this.mDebugEnable) console.log("request put : " + url + "?" + params);
@@ -116,18 +115,12 @@ export class HttpService {
         }).map(res => { res.json() }).toPromise();
     }
 
-    public showProgress() {
-        this.numberOfRequest++; 
-        this.progressCtrl.show();
+    public showProgress() { 
+        this.progressCtrl.add();
     }
 
-    public hideProgress() {
-        this.numberOfRequest--;
-        if (this.numberOfRequest == 0) { 
-            this.progressCtrl.hide();
-        } else {
-            this.progressCtrl.speedUp();
-        }
+    public hideProgress() {  
+      this.progressCtrl.subtract();
     }
 }
 

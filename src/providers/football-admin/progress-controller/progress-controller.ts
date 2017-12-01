@@ -6,41 +6,36 @@ export class ProgressControllerProvider {
   private loaderSubject = new Subject<string>();
   loaderState = this.loaderSubject.asObservable();
 
-  constructor() {
-    // console.log("start fucker", Date.now());
+  constructor() { 
     // setTimeout(() => {
-    //   this.show();
+    //   this.add();
     // }, 5000);
 
     // setTimeout(() => {
-    //   this.show();
+    //   this.add();
     // }, 6000)
     // setTimeout(() => {
-    //   this.show();
+    //   this.add();
     // }, 6500)
     // setTimeout(() => {
-    //   this.show();
+    //   this.add();
     // }, 7000)
 
     // setTimeout(() => {
-    //   this.speedUp();
+    //   this.subtract();
     // }, 8000)
 
     // setTimeout(() => {
-    //   this.hide();
-    //   console.log("end fucker", Date.now());
+    //   this.subtract(); 
     // }, 8500)
 
   }
 
-  show() {
-    this.loaderSubject.next("show");
+  add() { 
+    this.loaderSubject.next("add");
   }
-  hide() {
-    this.loaderSubject.next("hide");
-  }
-  speedUp() {
-    this.loaderSubject.next("speedUp");
-  }
+  subtract() {
+    this.loaderSubject.next("subtract");
+  } 
 }
 

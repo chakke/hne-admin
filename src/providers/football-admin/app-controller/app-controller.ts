@@ -3,12 +3,16 @@ import { Injectable } from '@angular/core';
 import { ResourceLoader } from '../../resource-loader/resource-loader';
 import { ProvinceControllerProvider } from '../province-controller/province-controller';
 import { FootballAdminHttpServiceProvider } from "../football-admin-http-service/football-admin-http-service";
-import { AssetsUrl } from '../app-constant';
+import { FirebaseServiceProvider } from "../firebase-service/firebase-service";
+
+import { AssetsUrl, STATUS } from '../app-constant';
 
 import { Config } from '../classes/config';
 
 import { Toast, ToastController, App } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { Article } from '../interface/article';
+import { Status } from '../interface/status';
 @Injectable()
 export class AppControllerProvider {
 
@@ -22,15 +26,16 @@ export class AppControllerProvider {
     private toastCtrl: ToastController,
     private app: App,
     private provinceController: ProvinceControllerProvider,
-    private httpService: FootballAdminHttpServiceProvider) {
+    private httpService: FootballAdminHttpServiceProvider,
+    private firebaseService: FirebaseServiceProvider) {
     this.resourceLoader = new ResourceLoader();
     this.config = new Config();
-    this.loadConfig().then(() => { 
+    this.loadConfig().then(() => {
       this.menuItems = this.config.getData(["menu-items"]);
       if (this.menuItemChangeHandler) {
         this.menuItemChangeHandler(this.menuItems);
       }
-      this.loadProvince(); 
+      this.loadProvince();
     });
   }
 
@@ -111,20 +116,6 @@ export class AppControllerProvider {
     }
   }
 
-   
-
-  deleteFloor(id: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    })
-  }
-
-  editFloor(id: number, name: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    })
-  }
-
   loadProvince() {
     this.httpService.getProvince().then(data => {
       if (data && data.content)
@@ -134,5 +125,41 @@ export class AppControllerProvider {
 
   getProvincecontroller() {
     return this.provinceController;
+  }
+
+  getStatusById(id: number): Status {
+    Object.keys(STATUS)
+    for (let i = 0; i < Object.keys(STATUS).length; i++) {
+      let key = Object.keys(STATUS)[i];
+      if (STATUS.hasOwnProperty(key) && STATUS[key].id == id)
+        return STATUS[key];
+    }
+  }
+
+  addArticle(article: Article): Promise<any> {
+    return this.firebaseService.addArticle(article);
+  }
+
+
+  getArticleById(id: string): Promise<Article> {
+    return this.firebaseService.getArticle(id).then(res => {
+      console.log("res", res);
+      return {
+        id: res.id,
+        title: res.title,
+        image: res.image,
+        description: `${res.description}`,
+        content: `${res.content}`,
+        time: res.time,
+        location: res.location,
+        status: this.getStatusById(res.status),
+        league: res.league,
+        category: res.category
+      }
+    })
+  }
+
+  updateArticle(article: Article): Promise<any>{
+    return this.firebaseService.updateArticle(article.id, article);
   }
 }

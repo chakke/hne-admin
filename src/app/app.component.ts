@@ -9,7 +9,7 @@ import { AppControllerProvider } from '../providers/football-admin/app-controlle
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = "FaUserPage"; 
+  rootPage: any = "FaNewsPage"; 
   menuItems = [];
   startUpPage = ["BaLoadingPage", "BaLoginPage", "BaRegisterPage"];
  

@@ -27,14 +27,17 @@
                             <td><img src="{{article.image}}" alt="image"></td>
                             <td>{{article.location}}</td>
                             <td text-center>
-                                {{article.timeToShow.toLocaleDateString()}}
+                                {{article.time.toLocaleDateString()}}
                             </td>
                             <td>{{article.status.title}}</td>
                             <td>
-                                <button class="btn btn-success" (click)="gotoRestaurantDetail(restaurant.id)">
+                                <a class="btn btn-success" href="/#/fa-new-detail/{{article.id}}">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </button>
-                                <button class="btn btn-danger" (click)="delete(restaurant)">
+                                </a>
+                                <!-- <button class="btn btn-primary" (click)="gotoNewDetail(article.id)">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button> -->
+                                <button class="btn btn-danger" (click)="delete(article)">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </td>
